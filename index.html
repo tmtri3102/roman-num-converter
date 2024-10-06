@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=devide-width, initial-scale=1.0"
+		/>
+		<style>
+			body {
+				font-family: "Courier New", Courier, monospace;
+				display: grid;
+				place-items: center;
+			}
+			#wrapper {
+				display: flex;
+				flex-direction: column;
+			}
+		</style>
+		<title>Roman Numeral Converter</title>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1>Roman Numeral Converter</h1>
+			<form>
+				<label for="enterValue"></label>
+				<input
+					type="number"
+					name="normalNumber"
+					id="enterValue"
+				/>
+				<button>Convert</button>
+			</form>
+			<div id="result"></div>
+		</div>
+
+		<script>
+			const form = document.querySelector("form");
+			const result = document.getElementById("result");
+			const romanNum = [
+				"M",
+				"CM",
+				"D",
+				"CD",
+				"C",
+				"XC",
+				"L",
+				"XL",
+				"X",
+				"IX",
+				"V",
+				"IV",
+				"I",
+			];
+			const arabNum = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+
+			form.addEventListener("submit", () => {
+				event.preventDefault();
+				let number = +parseInt(document.querySelector("input").value);
+				let index = arabNum.indexOf(number);
+				if (index !== -1) {
+					result.innerHTML = romanNum[index];
+				} else {
+					// alert("Not found");
+					if (number > 1) {
+						let max = null;
+						for (let i = 0; i < number; i++) {
+							if (arabNum[i] < number) {
+								if (max === null || max < arabNum[i]) {
+									max = arabNum[i];
+								}
+							}
+						}
+						console.log(max);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
